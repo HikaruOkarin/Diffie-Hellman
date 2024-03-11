@@ -11,9 +11,33 @@ func Ceaser(word string, key int) []int {
 	for _, val := range word {
 		encryption = append(encryption, (alphanumeric[val]+key)%26)
 	}
+	letter := 'a'
+	alpha := make(map[int]rune)
+	for i := 0; i < 26; i++ {
+		alpha[i] = letter
+		letter++
+	}
+	enc_word := ""
+	for _, val := range encryption {
+		enc_word += string(alpha[val])
+	}
+	fmt.Println("encryption:", enc_word)
+	dec_word := ""
+	for _, val := range encryption {
+		sum := (val - key) % 26
+
+		if sum < 0 {
+			sum += 26
+		}
+		dec_word += string(alpha[(sum)])
+	}
+	fmt.Println("decryption:", dec_word)
 
 	fmt.Println("digits:", digits)
 	return encryption
+}
+
+func Affine(word string, a, b int) []int {
 }
 
 func Digitize(word string) (map[rune]int, []int) {
@@ -46,4 +70,12 @@ func ToDecimal(word string) int {
 		degree--
 	}
 	return result
+}
+
+func Gcd(a, b int) int {
+	if b == 0 {
+		return a
+	} else {
+		return Gcd(b, a%b)
+	}
 }
