@@ -162,5 +162,32 @@ func Cipher() {
 		fmt.Println("b:", b)
 		crypto, _ := (Affine(word, a, b))
 		fmt.Println(crypto)
+	case 3:
+		Diffie()
 	}
+
+}
+func Diffie() {
+	fmt.Println("Alice:")
+	fmt.Println("Public keys:")
+	var p, g, a int
+	p = 29
+	g = 5
+	a = 2
+	fmt.Println("private key a:")
+	x := int(math.Pow(float64(g), float64(a))) & p
+	fmt.Println("key generated:", x)
+
+	fmt.Println("Bob:")
+	fmt.Println("private key b:")
+	var b int
+	b = 5
+	y := int(math.Pow(float64(g), float64(b))) & p
+	fmt.Println("key generated:", y)
+
+	k_a := int(math.Pow(float64(y), float64(a))) & p
+	k_b := int(math.Pow(float64(x), float64(b))) & p
+	fmt.Println(k_a)
+	fmt.Println(k_b)
+
 }
