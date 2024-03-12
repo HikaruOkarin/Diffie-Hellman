@@ -133,6 +133,7 @@ func ModInverse(a, m int) int {
 	}
 	return x1
 }
+
 func Cipher() {
 	fmt.Println("type cipher:")
 	fmt.Println("1.Ceaser")
@@ -165,28 +166,29 @@ func Cipher() {
 	case 3:
 		Diffie()
 	}
-
 }
+
 func Diffie() {
 	fmt.Println("Alice:")
 	fmt.Println("Public keys:")
 	var p, g, a int
-	p = 17
-	g = 3
-	a = 4
-	fmt.Println("private key a:")
-	x := modExp(g, a, p)
-	fmt.Println("key generated:", x)
+	p = FindPrime()
 
+	fmt.Println("p:", p)
+	g = 2
+	a = 6
+	fmt.Println("private key a:")
+	A := modExp(g, a, p)
+	fmt.Println("key A transfer for Bob->", A)
 	fmt.Println("Bob:")
 	fmt.Println("private key b:")
 	var b int
-	b = 7
-	y := modExp(g, b, p)
-	fmt.Println("key generated:", y)
+	b = 15
+	B := modExp(g, b, p)
+	fmt.Println("key B transfer for Alice->", B)
 
-	k_a := modExp(y, a, p)
-	k_b := modExp(x, b, p)
+	k_a := modExp(B, a, p)
+	k_b := modExp(A, b, p)
 	fmt.Println("Shared secret key computed by Alice:", k_a)
 	fmt.Println("Shared secret key computed by Bob:", k_b)
 }
@@ -202,4 +204,24 @@ func modExp(base, exponent, modulus int) int {
 		base = (base * base) % modulus
 	}
 	return result
+}
+
+func Isprime(nb int) bool {
+	for i := 2; i*i <= nb; i++ {
+		if nb%i == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func FindPrime() int {
+	num := rand.Intn(1000)
+	for num > 2 {
+		if Isprime(num) {
+			return num
+		}
+		num--
+	}
+	return 2
 }
