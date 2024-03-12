@@ -6,7 +6,7 @@ import (
 )
 
 func Ceaser(word string, key int) []int {
-	alphanumeric, digits := Digitize(word)
+	alphanumeric, _ := Digitize(word)
 	encryption := []int{}
 	for _, val := range word {
 		encryption = append(encryption, (alphanumeric[val]+key)%26)
@@ -33,11 +33,42 @@ func Ceaser(word string, key int) []int {
 	}
 	fmt.Println("decryption:", dec_word)
 
-	fmt.Println("digits:", digits)
 	return encryption
 }
 
-func Affine(word string, a, b int) []int {
+func Affine(word string, a, b int) ([]int, error) {
+	if Gcd(a, 26) != 1 {
+		return []int{}, fmt.Errorf("Some error happend")
+	}
+	alphanumeric, _ := Digitize(word)
+	encryption := []int{}
+	for _, val := range word {
+		encryption = append(encryption, ((alphanumeric[val])*a+b)%26)
+	}
+	letter := 'a'
+	alpha := make(map[int]rune)
+	for i := 0; i < 26; i++ {
+		alpha[i] = letter
+		letter++
+	}
+	enc_word := ""
+	for _, val := range encryption {
+		enc_word += string(alpha[val])
+	}
+	fmt.Println("encryption:", enc_word)
+	modinverse := ModInverse(a, 26)
+	dec_word := ""
+	for _, val := range encryption {
+		sum := val - b
+		if sum < 0 {
+			sum += 26
+		}
+		dec_word += string(alpha[(modinverse*sum)%26])
+
+	}
+	fmt.Println("decryption:", dec_word)
+
+	return encryption, nil
 }
 
 func Digitize(word string) (map[rune]int, []int) {
@@ -78,4 +109,26 @@ func Gcd(a, b int) int {
 	} else {
 		return Gcd(b, a%b)
 	}
+}
+
+func ModInverse(a, m int) int {
+	m0 := m
+	t, q := 0, 0
+	x0, x1 := 0, 1
+	if m == 1 {
+		return 0
+	}
+	for a > 1 {
+		q = a / m
+		t = m
+		m = a % m
+		a = t
+		t = x0
+		x0 = x1 - q*x0
+		x1 = t
+	}
+	if x1 < 0 {
+		x1 += m0
+	}
+	return x1
 }
