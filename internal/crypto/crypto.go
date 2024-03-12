@@ -3,6 +3,7 @@ package crypto
 import (
 	"fmt"
 	"math"
+	"math/rand"
 )
 
 func Ceaser(word string, key int) []int {
@@ -32,7 +33,7 @@ func Ceaser(word string, key int) []int {
 		dec_word += string(alpha[(sum)])
 	}
 	fmt.Println("decryption:", dec_word)
-
+	fmt.Print("encryption number:")
 	return encryption
 }
 
@@ -67,7 +68,7 @@ func Affine(word string, a, b int) ([]int, error) {
 
 	}
 	fmt.Println("decryption:", dec_word)
-
+	fmt.Print("encryption number:")
 	return encryption, nil
 }
 
@@ -131,4 +132,32 @@ func ModInverse(a, m int) int {
 		x1 += m0
 	}
 	return x1
+}
+func Cipher() {
+	fmt.Print("type cipher:")
+	var cipher string
+	fmt.Scan(&cipher)
+	switch cipher {
+	case "ceaser":
+		var word string
+		var key int
+		fmt.Print("word:")
+		fmt.Scan(&word)
+		fmt.Print("key:")
+		fmt.Scan(&key)
+		fmt.Println(Ceaser(word, key))
+	case "affine":
+		var word string
+		var a, b int
+		fmt.Print("word:")
+		fmt.Scan(&word)
+		for Gcd(a, 26) != 1 {
+			a = rand.Intn(25)
+		}
+		fmt.Println("a:", a)
+		b = rand.Intn(15)
+		fmt.Println("b:", b)
+		crypto, _ := (Affine(word, a, b))
+		fmt.Println(crypto)
+	}
 }
