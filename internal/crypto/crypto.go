@@ -134,11 +134,14 @@ func ModInverse(a, m int) int {
 	return x1
 }
 func Cipher() {
-	fmt.Print("type cipher:")
-	var cipher string
+	fmt.Println("type cipher:")
+	fmt.Println("1.Ceaser")
+	fmt.Println("2.Affine")
+	fmt.Println("3.Diffie-Hellman")
+	var cipher int
 	fmt.Scan(&cipher)
 	switch cipher {
-	case "ceaser":
+	case 1:
 		var word string
 		var key int
 		fmt.Print("word:")
@@ -146,7 +149,7 @@ func Cipher() {
 		fmt.Print("key:")
 		fmt.Scan(&key)
 		fmt.Println(Ceaser(word, key))
-	case "affine":
+	case 2:
 		var word string
 		var a, b int
 		fmt.Print("word:")
