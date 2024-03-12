@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"time"
 )
 
 func Ceaser(word string, key int) []int {
@@ -171,19 +172,23 @@ func Cipher() {
 func Diffie() {
 	fmt.Println("Alice:")
 	fmt.Println("Public keys:")
-	var p, g, a int
+	var p, g, a, b int
 	p = FindPrime()
 
 	fmt.Println("p:", p)
-	g = 2
-	a = 6
-	fmt.Println("private key a:")
+	rand.Seed(time.Now().UnixNano())
+	g = rand.Intn(19) + 2
+	fmt.Println("g:", g)
+	fmt.Print("a:")
+	fmt.Scan(&a)
+	fmt.Println("private key")
 	A := modExp(g, a, p)
 	fmt.Println("key A transfer for Bob->", A)
 	fmt.Println("Bob:")
-	fmt.Println("private key b:")
-	var b int
-	b = 15
+	fmt.Println("private key")
+	fmt.Print("b:")
+	fmt.Scan(&b)
+
 	B := modExp(g, b, p)
 	fmt.Println("key B transfer for Alice->", B)
 
@@ -216,7 +221,7 @@ func Isprime(nb int) bool {
 }
 
 func FindPrime() int {
-	num := rand.Intn(1000)
+	num := rand.Intn(1000) + 3
 	for num > 2 {
 		if Isprime(num) {
 			return num

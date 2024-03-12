@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIFFIE-HELLMAN</title>
+    <style>
+        body {
+            background-color:lightcyan;
+        }
+        .header {
+            color:cornflowerblue;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center; 
+    }
+    .submit {
+        
+    background-color:aqua; 
+    color: white;
+    border:dotted;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius:8px;
+    margin-bottom: 15px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .input {
+        margin-bottom: 15px;
+    }
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>DIFFIE-HELLMAN</h1>
+
+    </div>              
+   <div class="input">
+        <form action="/diffie-hellman" method="post" >
+            <label for="p_num">Prime number P:</label>
+            <input placeholder="number..." type="number" id="p_num" name="prime">
+            <label for="g_num">Generator Number G:</label>
+            <input placeholder="number..." type="number" id="g_num" name="generator">
+            <label for="secret_a">Private Key (Secret Number) a:</label>
+            <input placeholder="number..." type="number" id="secret_a" name="key_a">
+            <label for="secret_b">Private Key (Secret Number) b:</label>
+            <input placeholder="number..." type="number" id="secret_b" name="key_b">
+            <label for="num_A">Public Key (Number) A:</label>
+            <input placeholder="number..." type="number" id="num_A" name="public_A">
+            <label for="num_B">Public Key (Number) B:</label>
+            <input placeholder="number..." type="number" id="num_B" name="public_B"> 
+            <div class="submit">
+                <button type="submit">Calculate</button> 
+            </div>
+        </form>
+    </div>
+    
+   
+    <pre></pre>
+    <p>Results:</p>
+    <div>
+        <p>Diffie-Hellman</p>
+        <p>{{.Prime}}</p>
+    </div>
+    
+</body>
+</html>
